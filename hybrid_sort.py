@@ -1,3 +1,14 @@
+from numpy import random
+def generatedata(min,max,x):
+    size = []
+    for n in range(min,max+1):
+        size.append(n)
+    inputdata = {}
+    for i in size:
+        arr = [random.randint(1, x) for _ in range(i)]
+        inputdata[i] = arr
+    return size, inputdata
+
 def insertionsort(arr):
     for i in range(1,len(arr)):
         for j in range(i,0,-1):
@@ -33,6 +44,9 @@ def hybridsort(arr,S):
     rArr=hybridsort(arr[midPoint:],S)
     return merge(lArr,rArr)    
 
+size, data = generatedata(1,10,100)
+for key in data: 
+    print(hybridsort(data[key],2))
 #generate array
-arr=[1,2,3,3,2,1,5,1,3,5,7,8,9,1,2,4,8,6,8]
-print(hybridsort(arr,2)) #S is 2= 2 element arrays- need to minus 1 i think
+# arr=[1,2,3,3,2,1,5,1,3,5,7,8,9,1,2,4,8,6,8]
+# print(hybridsort(arr,2)) #S is 2= 2 element arrays- need to minus 1 i think
