@@ -89,6 +89,6 @@ for s in S:
     for arr in arrs:
         print("sorting..")
         count = 0
-        hybridsort(arr, 50)
+        hybridsort(arr, s)
         comparison[s] = count
 print(comparison)
