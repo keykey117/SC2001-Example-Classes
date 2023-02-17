@@ -70,12 +70,25 @@ def hybridsort(arr, S):
     return merge(lArr, rArr)
 
 
-arrs = generatedata(1000, 10000000, 1000000)
-counter = {}
-count = 0
-for arr in arrs:
-    print("sorting..")
-    count = 0
-    hybridsort(arr, 50)
-    counter[len(arr)] = count
-print(counter)
+# c(i) S = 50
+# arrs = generatedata(1000, 10000000, 1000)
+# counter = {}
+# count = 0
+# for arr in arrs:
+#     print("sorting..")
+#     count = 0
+#     hybridsort(arr, 50)
+#     counter[len(arr)] = count
+# print(counter)
+
+# c(ii) n = 50000
+S = [10, 50, 100, 200, 300, 400, 500, 1000]
+arrs = generatedata(50000, 50000, 10000)
+comparison = {}
+for s in S:
+    for arr in arrs:
+        print("sorting..")
+        count = 0
+        hybridsort(arr, 50)
+        comparison[s] = count
+print(comparison)
