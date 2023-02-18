@@ -1,4 +1,5 @@
 from numpy import random
+import matplotlib.pyplot as plt
 
 # Merge sort taught in lecture
 
@@ -82,7 +83,7 @@ def hybridsort(arr, S):
 # print(counter)
 
 # c(ii) n = 50000
-S = [10, 50, 100, 200, 300, 400, 500, 1000]
+S = [x for x in range(1, 100)]
 arrs = generatedata(50000, 50000, 10000)
 comparison = {}
 for s in S:
@@ -92,3 +93,10 @@ for s in S:
         hybridsort(arr, s)
         comparison[s] = count
 print(comparison)
+
+plt.plot(comparison.keys(), comparison.values())
+plt.xlabel("value of S")
+plt.ylabel("Number of key Comparisons")
+ax = plt.subplot()
+ax.ticklabel_format(useOffset=False, style="plain")
+plt.show()
