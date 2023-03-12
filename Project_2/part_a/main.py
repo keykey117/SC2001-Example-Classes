@@ -28,7 +28,7 @@ def DijkstraAlgo(graph, startNode):
     distanceToNode = {}
     preceedingNode = {}
     solutionSet = {}
-    pq = priority_queue.PriorityQueue()
+
     orderNode = []
     orderWeight = []
     for node in graph.get_nodes():
@@ -36,27 +36,24 @@ def DijkstraAlgo(graph, startNode):
         preceedingNode[node] = None
         solutionSet[node] = 0
     distanceToNode[startNode] = 0
+    pq = priority_queue.PriorityQueue(distanceToNode)
     for node in distanceToNode:
-        # queue elements: (weight, node)
-        nodeTup = (distanceToNode[node], node)
-        pq.insert(nodeTup)
+        # queue elements: node
+        pq.insert(node)
 
     while (not pq.isEmpty()):
-        cheapestNode = pq.delete()
-        solutionSet[cheapestNode[1]] = 1
-        orderNode.append(cheapestNode[1])
-        orderWeight.append(cheapestNode[0])
+        cheapestNode = pq.pop()
+        solutionSet[cheapestNode] = 1
+        orderNode.append(cheapestNode)
+        orderWeight.append(distanceToNode[cheapestNode])
         # adjacentNode:list of weights
-        for adjacentNode, weight in enumerate(graph.adjacent_nodes(cheapestNode[1])):
+        for adjacentNode, weight in enumerate(graph.adjacent_nodes(cheapestNode)):
             if weight == 0:
                 continue
-            if (solutionSet[adjacentNode] == 0 and distanceToNode[adjacentNode] > distanceToNode[cheapestNode[1]] + weight):
-                targetTup = (distanceToNode[adjacentNode], adjacentNode)
-                pq.remove(targetTup)  # remove element from priority q
-                # update both priority q and distance of shorter path
-                distanceToNode[adjacentNode] = distanceToNode[cheapestNode[1]] + weight
-                nodeTup = (distanceToNode[adjacentNode], adjacentNode)
-                pq.insert(nodeTup)
+            if (solutionSet[adjacentNode] == 0 and
+                    pq.distanceToNode[adjacentNode] > pq.distanceToNode[cheapestNode] + weight):
+                pq.distanceToNode[adjacentNode] = pq.distanceToNode[cheapestNode] + weight
+                pq.insert(adjacentNode)
     # printOrder(orderNode)
     # printOrder(orderWeight)
 

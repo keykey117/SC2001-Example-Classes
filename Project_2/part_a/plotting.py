@@ -10,7 +10,7 @@ runtime = list(data.values())
 
 #fig, axs = plt.subplots(1, 4)
 fig, axs = plt.subplots(1)
-axs.plot(size, runtime, label='Dijkstra min')
+axs.plot(size, runtime, label='Dijkstra (array,adj matrix)')
 axs.set(xlabel='Graph Size', ylabel='Runtime(s)')
 plt.legend()
 plt.show()

@@ -1,6 +1,8 @@
 class PriorityQueue(object):
-    def __init__(self):
+
+    def __init__(self, distanceToNode):
         self.queue = []
+        self.distanceToNode = distanceToNode
 
     def __str__(self):
         return ' '.join([str(i) for i in self.queue])
@@ -24,11 +26,11 @@ class PriorityQueue(object):
 
     # for popping an element based on Priority
 
-    def delete(self):
+    def pop(self):
         try:
             min_val = 0
             for i in range(len(self.queue)):
-                if self.queue[i][0] < self.queue[min_val][0]:
+                if self.distanceToNode[self.queue[i]] < self.distanceToNode[self.queue[min_val]]:
                     min_val = i
             item = self.queue[min_val]
             del self.queue[min_val]
