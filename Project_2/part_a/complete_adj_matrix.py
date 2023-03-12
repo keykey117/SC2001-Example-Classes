@@ -1,11 +1,15 @@
-class adj_matrix:
+import random
+
+
+class complete_adj_matrix:
     def __init__(self, num_nodes):
         self.numNodes = num_nodes
         self.nodes = range(num_nodes)
         self.adj_mat = []
 
         for i in range(self.numNodes):
-            self.adj_mat.append([1] * num_nodes)
+            self.adj_mat.append([random.randrange(1, 100)
+                                for i in range(self.numNodes)])
             self.adj_mat[i][i] = 0
 
     def get_nodes(self):
@@ -26,5 +30,5 @@ class adj_matrix:
 
 
 if __name__ == "__main__":
-    graph = adj_matrix(5)  # follows Lect 6 Slide 11
+    graph = complete_adj_matrix(5)  # follows Lect 6 Slide 11
     graph.print_graph()

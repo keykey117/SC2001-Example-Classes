@@ -3,6 +3,7 @@ import time
 import json
 import adj_matrix
 import priority_queue
+import complete_adj_matrix
 
 
 def randomGraphGenerator(size):
@@ -28,6 +29,7 @@ def DijkstraAlgo(graph, startNode):
     distanceToNode = {}
     preceedingNode = {}
     solutionSet = {}
+    pq = priority_queue.PriorityQueue()
     orderNode = []
     orderWeight = []
     for node in graph.get_nodes():
@@ -35,52 +37,73 @@ def DijkstraAlgo(graph, startNode):
         preceedingNode[node] = None
         solutionSet[node] = 0
     distanceToNode[startNode] = 0
-    pq = priority_queue.PriorityQueue(distanceToNode)
     for node in distanceToNode:
-        # queue elements: node
-        pq.insert(node)
+        # queue elements: (weight, node)
+        nodeTup = (distanceToNode[node], node)
+        pq.insert(nodeTup)
+
     while (not pq.isEmpty()):
-        cheapestNode = pq.pop()
-        solutionSet[cheapestNode] = 1
-        orderNode.append(cheapestNode)
-        orderWeight.append(distanceToNode[cheapestNode])
+        cheapestNode = pq.delete()
+        solutionSet[cheapestNode[1]] = 1
+        orderNode.append(cheapestNode[1])
+        orderWeight.append(cheapestNode[0])
         # adjacentNode:list of weights
-        for adjacentNode, weight in enumerate(graph.adjacent_nodes(cheapestNode)):
+        for adjacentNode, weight in enumerate(graph.adjacent_nodes(cheapestNode[1])):
             if weight == 0:
                 continue
-            if (solutionSet[adjacentNode] == 0 and
-                    pq.distanceToNode[adjacentNode] > pq.distanceToNode[cheapestNode] + weight):
-                pq.distanceToNode[adjacentNode] = pq.distanceToNode[cheapestNode] + weight
-                pq.insert(adjacentNode)
-    # printOrder(orderNode)
-    # printOrder(orderWeight)
+            if (solutionSet[adjacentNode] == 0 and distanceToNode[adjacentNode] > distanceToNode[cheapestNode[1]] + weight):
+                targetTup = (distanceToNode[adjacentNode], adjacentNode)
+                pq.remove(targetTup)  # remove element from priority q
+                # update both priority q and distance of shorter path
+                distanceToNode[adjacentNode] = distanceToNode[cheapestNode[1]] + weight
+                nodeTup = (distanceToNode[adjacentNode], adjacentNode)
+                pq.insert(nodeTup)
 
 
-result = {}
-print("Start")
-# for item in range(100, 10000, 100):
-#     print('at', item)
-#     graph = randomGraphGenerator(item)
-#     # graph.print_graph()
-#     start = time.time()
-#     DijkstraAlgo(graph, 0)
-#     end = time.time()
-#     elapsed = end-start
-#     result[item] = elapsed
-# with open('data.json', 'w') as f:
-#     json.dump(result, f)
-print("Completed")
+# result = {}
+# print("Start")
+# # for item in range(100, 10000, 100):
+# #     print('at', item)
+# #     graph = randomGraphGenerator(item)
+# #     # graph.print_graph()
+# #     start = time.time()
+# #     DijkstraAlgo(graph, 0)
+# #     end = time.time()
+# #     elapsed = end-start
+# #     result[item] = elapsed
+# # with open('data.json', 'w') as f:
+# #     json.dump(result, f)
+# print("Completed")
 
-print("Start")
-# for item in range(100, 10000, 100):
-#     print('at', item)
-#     graph = randomGraphGenerator(item)
-#     # graph.print_graph()
-#     start = time.time()
-#     DijkstraAlgo(graph, 0)
-#     end = time.time()
-#     elapsed = end-start
-#     result[item] = elapsed
-# with open('data.json', 'w') as f:
-#     json.dump(result, f)
-print("Completed")
+size = 5000
+#graph1= randomGraphGenerator(size, 50)
+graph1 = complete_adj_matrix.complete_adj_matrix(size)
+#graph1= randomSparseGraphGenerator(size)
+start1 = time.time()
+DijkstraAlgo(graph1, 0)
+end1 = time.time()
+elapsed1 = end1-start1
+print('Round 1: %.3f s' % elapsed1)
+# second round
+#graph2= randomGraphGenerator(size, 100)
+graph2 = complete_adj_matrix.complete_adj_matrix(size)
+#graph2= randomSparseGraphGenerator(size)
+start2 = time.time()
+DijkstraAlgo(graph2, 0)
+end2 = time.time()
+elapsed2 = end2-start2
+print('Round 2: %.3f s' % elapsed2)
+#graph3= randomGraphGenerator(size, 150)
+graph3 = complete_adj_matrix.complete_adj_matrix(size)
+#graph3= randomSparseGraphGenerator(size)
+start3 = time.time()
+DijkstraAlgo(graph3, 0)
+end3 = time.time()
+elapsed3 = end3-start3
+print('Round 3: %.3f s' % elapsed3)
+print('Time taken for Dijkstra Algorithm with Adjacency matrix and array on a complete graph of size '+str(size))
+print('Round 1: %.3f s' % elapsed1)
+print('Round 2: %.3f s' % elapsed2)
+print('Round 3: %.3f s' % elapsed3)
+avg = (elapsed1+elapsed2+elapsed3)/3
+print('Avg Time Taken: %.3f s' % avg)
