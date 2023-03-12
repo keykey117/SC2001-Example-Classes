@@ -1,5 +1,4 @@
 class PriorityQueue(object):
-
     def __init__(self, distanceToNode):
         self.queue = []
         self.distanceToNode = distanceToNode
@@ -25,19 +24,14 @@ class PriorityQueue(object):
             exit()
 
     # for popping an element based on Priority
-
     def pop(self):
-        try:
-            min_val = 0
-            for i in range(len(self.queue)):
-                if self.distanceToNode[self.queue[i]] < self.distanceToNode[self.queue[min_val]]:
-                    min_val = i
-            item = self.queue[min_val]
-            del self.queue[min_val]
-            return item
-        except IndexError:
-            print()
-            exit()
+        min_val = 0
+        for i in range(len(self.queue)):
+            if self.distanceToNode[self.queue[i]] < self.distanceToNode[self.queue[min_val]]:
+                min_val = i
+        item = self.queue[min_val]
+        del self.queue[min_val]
+        return item
 
 
 if __name__ == '__main__':

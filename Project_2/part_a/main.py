@@ -28,7 +28,6 @@ def DijkstraAlgo(graph, startNode):
     distanceToNode = {}
     preceedingNode = {}
     solutionSet = {}
-
     orderNode = []
     orderWeight = []
     for node in graph.get_nodes():
@@ -40,7 +39,6 @@ def DijkstraAlgo(graph, startNode):
     for node in distanceToNode:
         # queue elements: node
         pq.insert(node)
-
     while (not pq.isEmpty()):
         cheapestNode = pq.pop()
         solutionSet[cheapestNode] = 1
@@ -60,15 +58,29 @@ def DijkstraAlgo(graph, startNode):
 
 result = {}
 print("Start")
-for item in range(100, 10000, 100):
-    print('at', item)
-    graph = randomGraphGenerator(item)
-    # graph.print_graph()
-    start = time.time()
-    DijkstraAlgo(graph, 0)
-    end = time.time()
-    elapsed = end-start
-    result[item] = elapsed
-with open('data.json', 'w') as f:
-    json.dump(result, f)
+# for item in range(100, 10000, 100):
+#     print('at', item)
+#     graph = randomGraphGenerator(item)
+#     # graph.print_graph()
+#     start = time.time()
+#     DijkstraAlgo(graph, 0)
+#     end = time.time()
+#     elapsed = end-start
+#     result[item] = elapsed
+# with open('data.json', 'w') as f:
+#     json.dump(result, f)
+print("Completed")
+
+print("Start")
+# for item in range(100, 10000, 100):
+#     print('at', item)
+#     graph = randomGraphGenerator(item)
+#     # graph.print_graph()
+#     start = time.time()
+#     DijkstraAlgo(graph, 0)
+#     end = time.time()
+#     elapsed = end-start
+#     result[item] = elapsed
+# with open('data.json', 'w') as f:
+#     json.dump(result, f)
 print("Completed")
