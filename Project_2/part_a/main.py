@@ -55,7 +55,6 @@ def DijkstraAlgo(graph, startNode):
         # queue elements: (weight, node)
         nodeTup = (distanceToNode[node], node)
         pq.insert(nodeTup)
-
     while (not pq.isEmpty()):
         cheapestNode = pq.delete()
         solutionSet[cheapestNode[1]] = 1
@@ -65,7 +64,8 @@ def DijkstraAlgo(graph, startNode):
         for adjacentNode, weight in enumerate(graph.adjacent_nodes(cheapestNode[1])):
             if weight == 0:
                 continue
-            if (solutionSet[adjacentNode] == 0 and distanceToNode[adjacentNode] > distanceToNode[cheapestNode[1]] + weight):
+            if (solutionSet[adjacentNode] == 0 and
+                    distanceToNode[adjacentNode] > distanceToNode[cheapestNode[1]] + weight):
                 targetTup = (distanceToNode[adjacentNode], adjacentNode)
                 pq.remove(targetTup)  # remove element from priority q
                 # update both priority q and distance of shorter path
