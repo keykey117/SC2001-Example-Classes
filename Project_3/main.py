@@ -4,10 +4,15 @@ def knapsack(w, p, C, n):
         profit.append([0] * (n+1))
     for r in range(1, C+1):
         for c in range(1, n+1):
-            profit[r][c] = profit[r][c-1]
-            if (w[c-1] <= r):
-                if (profit[r][c] < profit[r-w[c-1]][c-1] + p[c-1]):
-                    profit[r][c] = profit[r-w[c-1]][c-1] + p[c-1]
+            # base case when there is only 1 item
+            if (c == 1):
+                profit[r][c] = (r // w[c-1]) * p[c-1]
+            else:
+                if (r < w[c-1]):
+                    profit[r][c] = profit[r][c-1]
+                else:
+                    profit[r][c] = max(profit[r-w[c-1]][c] +
+                                       p[c-1], profit[r][c-1])
     print(profit)
     return profit[C][n]
 
