@@ -2,17 +2,17 @@ def knapsack(w, p, C, n):
     profit = list()
     for i in range(C+1):
         profit.append([0] * (n+1))
-    for r in range(1, C+1):
-        for c in range(1, n+1):
+    for capacity in range(1, C+1):
+        for item in range(1, n+1):
             # base case when there is only 1 item
-            if (c == 1):
-                profit[r][c] = (r // w[c-1]) * p[c-1]
+            if (item == 1):
+                profit[capacity][item] = (capacity // w[item-1]) * p[item-1]
             else:
-                if (r < w[c-1]):
-                    profit[r][c] = profit[r][c-1]
+                if (capacity < w[item-1]):
+                    profit[capacity][item] = profit[capacity][item-1]
                 else:
-                    profit[r][c] = max(profit[r-w[c-1]][c] +
-                                       p[c-1], profit[r][c-1])
+                    profit[capacity][item] = max(profit[capacity-w[item-1]][item] +
+                                                 p[item-1], profit[capacity][item-1])
     print(profit)
     return profit[C][n]
 
